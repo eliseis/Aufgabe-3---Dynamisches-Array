@@ -10,7 +10,7 @@ public class DynamicArray {
     private int n = 0;
 
     public DynamicArray(int growthFactor, int maxOverhead){
-        if (maxOverhead < 1 || growthFactor < 1 || growthFactor < maxOverhead) throw new IllegalArgumentException();
+        if (maxOverhead < 1 || growthFactor < 1 || growthFactor > maxOverhead) throw new IllegalArgumentException();
         this.growthFactor = growthFactor;
         this.maxOverhead = maxOverhead;
     }
