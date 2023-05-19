@@ -4,8 +4,13 @@ import java.util.Arrays;
 
 public class DynamicArray {
     private int[] elements;
+    private int growthFactor;
+    private  int maxOverhead;
 
-    public DynamicArray(int growthFactor, int maxOverhead) {
+    public DynamicArray(int growthFactor, int maxOverhead){
+        if (maxOverhead <= 1 || growthFactor <= 1) throw new IllegalArgumentException();
+        this.growthFactor = growthFactor;
+        this.maxOverhead = maxOverhead;
     }
 
     public int getLength() {
@@ -13,14 +18,52 @@ public class DynamicArray {
     }
 
     public Interval reportUsage(Interval usage, int minSize) {
+        int a = usage.getTo() - usage.getFrom();
+        if (minSize > elements.length){
+            int[] mas = new int[elements.length * maxOverhead];
+            if (a >= 0){
+                for(int i = usage.getFrom(); i <= usage.getTo(); i++){
+                    mas[i - usage.getFrom()] = elements[i];
+                }
+                return new Interval.NonEmptyInterval(0,a);
+            }
+            else {
+                for (int i = 0 ; i <= usage.getTo(); i++){
+                    mas[elements.length - usage.getFrom() + i + 1] = elements[i];
+                }
+                for(int i = 0; i + usage.getFrom() < elements.length; i++){
+                    mas[i] = elements[usage.getFrom() + i];
+                }
+                return new Interval.NonEmptyInterval(0, elements.length - a);
+            }
+        }
+        if(minSize * maxOverhead < elements.length ){
+            int[] mas = new int[minSize * growthFactor];
+            if (a >= 0){
+                for(int i = usage.getFrom(); i <= usage.getTo(); i++){
+                    mas[i - usage.getFrom()] = elements[i];
+                }
+                return new Interval.NonEmptyInterval(0,a);
+            }
+            else {
+                for (int i = 0 ; i <= usage.getTo(); i++){
+                    mas[elements.length - usage.getFrom() + i + 1] = elements[i];
+                }
+                for(int i = 0; i + usage.getFrom() < elements.length; i++){
+                    mas[i] = elements[usage.getFrom() + i];
+                }
+                return new Interval.NonEmptyInterval(0, elements.length - a);
+            }
+        }
         return null;
     }
 
     public int get(int index) {
-        return 0;
+        return this.elements[index];
     }
 
     public void set(int index, int value) {
+        this.elements[index] = value;
     }
 
     public void reportArray(Result result) {
