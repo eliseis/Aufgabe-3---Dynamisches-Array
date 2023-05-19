@@ -34,18 +34,18 @@ public class DynamicArray {
                     mas[i - usage.getFrom()] = elements[i];
                 }
                 elements = mas;
-                return new Interval.NonEmptyInterval(0,usage.getSize(elements.length));
+                return new Interval.NonEmptyInterval(0,usage.getSize(elements.length) - 1);
             }
-//            else {
-//                for(int i = 0; i + usage.getFrom() <= elements.length - 1; i++){
-//                    mas[i] = elements[usage.getFrom() + i];
-//                }
-//                for (int i = 0 ; i <= usage.getTo(); i++){
-//                    mas[elements.length - usage.getFrom() + i] = elements[i];
-//                }
-//                elements = mas;
-//                return new Interval.NonEmptyInterval(0, elements.length - usage.getSize(elements.length) - 3);
-//            }
+            else {
+                for(int i = 0; i <= elements.length - usage.getFrom() - 1; i++){
+                    mas[i] = elements[usage.getFrom() + i];
+                }
+                for (int i = 0 ; i <= usage.getTo(); i++){
+                    mas[elements.length - usage.getFrom() + i] = elements[i];
+                }
+                elements = mas;
+                return new Interval.NonEmptyInterval(0, elements.length - usage.getSize(elements.length) - 3);
+            }
         }
         return usage;
 
