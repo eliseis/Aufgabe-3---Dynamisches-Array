@@ -32,16 +32,16 @@ public class DynamicArray {
                 elements = mas;
                 return new Interval.NonEmptyInterval(0,usage.getSize(elements.length));
             }
-            else {
-                for (int i = 0 ; i <= usage.getTo(); i++){
-                    mas[elements.length - usage.getFrom() + i] = elements[i];
-                }
-                for(int i = 0; i + usage.getFrom() <= elements.length - 1; i++){
-                    mas[i] = elements[usage.getFrom() + i];
-                }
-                elements = mas;
-                return new Interval.NonEmptyInterval(0, elements.length - usage.getSize(elements.length) - 3);
-            }
+//            else {
+//                for (int i = 0 ; i <= usage.getTo(); i++){
+//                    mas[elements.length - usage.getFrom() + i] = elements[i];
+//                }
+//                for(int i = 0; i + usage.getFrom() <= elements.length - 1; i++){
+//                    mas[i] = elements[usage.getFrom() + i];
+//                }
+//                elements = mas;
+//                return new Interval.NonEmptyInterval(0, elements.length - usage.getSize(elements.length) - 3);
+//            }
         }
         return usage;
 
