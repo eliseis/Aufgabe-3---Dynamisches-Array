@@ -40,11 +40,11 @@ public class DynamicArray {
                 for(int i = 0; i <= elements.length - usage.getFrom() - 1; i++){
                     mas[i] = elements[usage.getFrom() + i];
                 }
-                for (int i = 0 ; i <= usage.getTo(); i++){
-                    mas[elements.length - usage.getFrom() + i] = elements[i];
+                for (int i = elements.length - usage.getFrom() ; i <= usage.getSize(elements.length) - 1; i++){
+                    mas[i] = elements[i + usage.getFrom() - elements.length];
                 }
                 elements = mas;
-                return new Interval.NonEmptyInterval(0, elements.length - usage.getSize(elements.length) - 3);
+                return new Interval.NonEmptyInterval(0,usage.getSize(elements.length) - 1);
             }
         }
         return usage;
