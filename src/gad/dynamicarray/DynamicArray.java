@@ -22,7 +22,7 @@ public class DynamicArray {
     public Interval reportUsage(Interval usage, int minSize) {
         int a = usage.getTo() - usage.getFrom();
         if (minSize > elements.length){
-            int[] mas = new int[elements.length * maxOverhead];
+            int[] mas = new int[minSize * growthFactor];
             if (a >= 0){
                 for(int i = usage.getFrom(); i <= usage.getTo(); i++){
                     mas[i - usage.getFrom()] = elements[i];
@@ -32,13 +32,13 @@ public class DynamicArray {
             }
             else {
                 for (int i = 0 ; i <= usage.getTo(); i++){
-                    mas[elements.length - usage.getFrom() + i + 1] = elements[i];
+                    mas[elements.length - usage.getFrom() + i] = elements[i];
                 }
-                for(int i = 0; i + usage.getFrom() < elements.length; i++){
+                for(int i = 0; i + usage.getFrom() <= elements.length - 1; i++){
                     mas[i] = elements[usage.getFrom() + i];
                 }
                 elements = mas;
-                return new Interval.NonEmptyInterval(0, elements.length - a);
+                return new Interval.NonEmptyInterval(0, elements.length - a - 3);
             }
         }
         if(minSize * maxOverhead < elements.length ){
@@ -52,13 +52,13 @@ public class DynamicArray {
             }
             else {
                 for (int i = 0 ; i <= usage.getTo(); i++){
-                    mas[elements.length - usage.getFrom() + i + 1] = elements[i];
+                    mas[elements.length - usage.getFrom() + i] = elements[i];
                 }
-                for(int i = 0; i + usage.getFrom() < elements.length; i++){
+                for(int i = 0; i + usage.getFrom() <= elements.length - 1; i++){
                     mas[i] = elements[usage.getFrom() + i];
                 }
                 elements = mas;
-                return new Interval.NonEmptyInterval(0, elements.length - a);
+                return new Interval.NonEmptyInterval(0, elements.length - a - 3);
             }
         }
         return null;
