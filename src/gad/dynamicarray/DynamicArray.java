@@ -64,12 +64,4 @@ public class DynamicArray {
     public String toString() {
         return Arrays.toString(elements);
     }
-    void reallocate(int new_w){
-        w = new_w;
-        int[] new_elements = new int[new_w];
-        for (int i = 0; i < n; i++){
-            new_elements[i] = elements[i];
-        }
-        elements = new_elements;
-    }
 }
