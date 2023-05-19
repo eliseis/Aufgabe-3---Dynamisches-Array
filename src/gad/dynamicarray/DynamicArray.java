@@ -6,9 +6,11 @@ public class DynamicArray {
     private int[] elements;
     private int growthFactor;
     private  int maxOverhead;
+    private int w = 1;
+    private int n = 0;
 
     public DynamicArray(int growthFactor, int maxOverhead){
-        if (maxOverhead < 1 || growthFactor < 1) throw new IllegalArgumentException();
+        if (maxOverhead < 1 || growthFactor < 1 || growthFactor < maxOverhead) throw new IllegalArgumentException();
         this.growthFactor = growthFactor;
         this.maxOverhead = maxOverhead;
     }
@@ -73,5 +75,16 @@ public class DynamicArray {
     @Override
     public String toString() {
         return Arrays.toString(elements);
+    }
+    void reallocate(int new_w){
+        w = new_w;
+        int[] new_elements = new int[new_w];
+        for (int i = 0; i < n; i++){
+            new_elements[i] = elements[i];
+        }
+        elements = new_elements;
+    }
+    public static void main(String[] args) {
+        reportUsage(new Interval.NonEmptyInterval(1, 2), 4);
     }
 }
