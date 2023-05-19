@@ -20,18 +20,19 @@ public class DynamicArray {
     }
 
     public Interval reportUsage(Interval usage, int minSize) {
-        if (usage.isEmpty()){
-            return Interval.EmptyInterval.getEmptyInterval();
-        }
-        int a = usage.getSize(elements.length);
+
         if (minSize > elements.length || minSize * maxOverhead < elements.length ){
             int[] mas = new int[minSize * growthFactor];
-            if (usage.getFrom() < usage.getTo()){
+            if (usage.isEmpty()){
+                elements = mas;
+                return Interval.EmptyInterval.getEmptyInterval();
+            }
+            if (usage.getFrom() <= usage.getTo()){
                 for(int i = usage.getFrom(); i <= usage.getTo(); i++){
                     mas[i - usage.getFrom()] = elements[i];
                 }
                 elements = mas;
-                return new Interval.NonEmptyInterval(0,a);
+                return new Interval.NonEmptyInterval(0,usage.getSize(elements.length));
             }
             else {
                 for (int i = 0 ; i <= usage.getTo(); i++){
@@ -41,7 +42,7 @@ public class DynamicArray {
                     mas[i] = elements[usage.getFrom() + i];
                 }
                 elements = mas;
-                return new Interval.NonEmptyInterval(0, elements.length - a - 3);
+                return new Interval.NonEmptyInterval(0, elements.length - usage.getSize(elements.length) - 3);
             }
         }
         return usage;
