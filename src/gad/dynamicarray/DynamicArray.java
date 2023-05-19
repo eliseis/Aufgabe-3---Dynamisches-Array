@@ -34,7 +34,7 @@ public class DynamicArray {
                     mas[i - usage.getFrom()] = elements[i];
                 }
                 elements = mas;
-                return new Interval.NonEmptyInterval(0,usage.getSize(elements.length) - 1);
+                return new Interval.NonEmptyInterval(0,usage.getSize(mas.length) - 1);
             }
             else {
                 for(int i = 0; i <= elements.length - usage.getFrom() - 1; i++){
@@ -44,7 +44,7 @@ public class DynamicArray {
                     mas[i] = elements[i + usage.getFrom() - elements.length];
                 }
                 elements = mas;
-                return new Interval.NonEmptyInterval(0,usage.getSize(elements.length) - 1);
+                return new Interval.NonEmptyInterval(0,usage.getSize(mas.length) - 1);
             }
         }
         return usage;
