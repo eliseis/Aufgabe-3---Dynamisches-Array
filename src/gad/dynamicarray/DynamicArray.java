@@ -6,8 +6,6 @@ public class DynamicArray {
     private int[] elements;
     private int growthFactor;
     private  int maxOverhead;
-    private int w = 1;
-    private int n = 0;
 
     public DynamicArray(int growthFactor, int maxOverhead){
         if (maxOverhead < 1 || growthFactor < 1 || growthFactor > maxOverhead) throw new IllegalArgumentException();
@@ -64,5 +62,9 @@ public class DynamicArray {
     @Override
     public String toString() {
         return Arrays.toString(elements);
+    }
+
+    public static void main(String[] args) {
+
     }
 }
