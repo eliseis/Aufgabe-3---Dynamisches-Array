@@ -48,10 +48,12 @@ public class DynamicArray {
     }
 
     public int get(int index) {
+        assert(0 <= index && index < elements.length);
         return this.elements[index];
     }
 
     public void set(int index, int value) {
+        assert(0 <= index && index < elements.length);
         this.elements[index] = value;
     }
 
