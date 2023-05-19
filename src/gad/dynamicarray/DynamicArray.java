@@ -27,6 +27,7 @@ public class DynamicArray {
                 for(int i = usage.getFrom(); i <= usage.getTo(); i++){
                     mas[i - usage.getFrom()] = elements[i];
                 }
+                elements = mas;
                 return new Interval.NonEmptyInterval(0,a);
             }
             else {
@@ -36,6 +37,7 @@ public class DynamicArray {
                 for(int i = 0; i + usage.getFrom() < elements.length; i++){
                     mas[i] = elements[usage.getFrom() + i];
                 }
+                elements = mas;
                 return new Interval.NonEmptyInterval(0, elements.length - a);
             }
         }
@@ -45,6 +47,7 @@ public class DynamicArray {
                 for(int i = usage.getFrom(); i <= usage.getTo(); i++){
                     mas[i - usage.getFrom()] = elements[i];
                 }
+                elements = mas;
                 return new Interval.NonEmptyInterval(0,a);
             }
             else {
@@ -54,6 +57,7 @@ public class DynamicArray {
                 for(int i = 0; i + usage.getFrom() < elements.length; i++){
                     mas[i] = elements[usage.getFrom() + i];
                 }
+                elements = mas;
                 return new Interval.NonEmptyInterval(0, elements.length - a);
             }
         }
@@ -83,8 +87,5 @@ public class DynamicArray {
             new_elements[i] = elements[i];
         }
         elements = new_elements;
-    }
-    public static void main(String[] args) {
-        reportUsage(new Interval.NonEmptyInterval(1, 2), 4);
     }
 }
