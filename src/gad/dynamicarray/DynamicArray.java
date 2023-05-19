@@ -20,7 +20,6 @@ public class DynamicArray {
     }
 
     public Interval reportUsage(Interval usage, int minSize) {
-
         if (minSize > elements.length || minSize * maxOverhead < elements.length ){
             int[] mas = new int[minSize * growthFactor];
             if (usage.isEmpty()){
