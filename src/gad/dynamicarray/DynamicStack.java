@@ -41,13 +41,12 @@ public class DynamicStack implements Stack {
 
     @Override
     public int popBack() {
-        if (interval.getSize(array.getLength()) == 1){
-            interval = new Interval.NonEmptyInterval(0,0);
+        if (interval.getSize(array.getLength()) == 1 || interval.getSize(array.getLength()) == 0){
+            interval = Interval.EmptyInterval.getEmptyInterval();
             array.reportUsage(interval, 0);
         }
         else {
-            array.reportUsage(interval, interval.getSize(array.getLength()) - 1);
-            interval = new Interval.NonEmptyInterval(interval.getFrom(), interval.getTo() - 1);
+            interval = array.reportUsage(interval, interval.getSize(array.getLength()) - 1);
         }
         array.reportArray(result);
         return array.get(interval.getTo());
