@@ -18,7 +18,6 @@ public class DynamicStack implements Stack {
 
     @Override
     public int size() {
-
         return interval.getSize(array.getLength());
     }
 
@@ -28,8 +27,8 @@ public class DynamicStack implements Stack {
             interval = new Interval.NonEmptyInterval(0,0);
         }
         array.reportUsage(interval, interval.getSize(array.getLength()) + 1);
-        array.set(interval.getSize(array.getLength()), value);
         interval = new Interval.NonEmptyInterval(interval.getFrom(), interval.getTo() + 1);
+        array.set(interval.getTo(), value);
         array.reportArray(result);
     }
 
