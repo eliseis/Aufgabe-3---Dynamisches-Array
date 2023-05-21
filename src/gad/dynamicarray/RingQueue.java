@@ -35,7 +35,7 @@ public class RingQueue implements Queue {
         }
         if (interval.getSize(array.getLength()) >= array.getLength()) {
             interval = array.reportUsage(interval,array.getLength() + 1);
-            interval = new Interval.NonEmptyInterval(interval.getFrom(), interval.getTo() + 1);
+            interval = new Interval.NonEmptyInterval(interval.getFrom(), (interval.getTo() + 1) % array.getLength());
         } else {
             interval = new Interval.NonEmptyInterval(interval.getFrom(), interval.getTo() + 1);
         }
@@ -45,12 +45,12 @@ public class RingQueue implements Queue {
 
     @Override
     public int popFront() {
-        int last = array.get(interval.getTo());
+        int last = array.get(interval.getFrom());
         if (interval.getSize(array.getLength()) == 1 || interval.getSize(array.getLength()) == 0){
             interval = array.reportUsage(Interval.EmptyInterval.getEmptyInterval(), 0);
         }
         else {
-            interval = array.reportUsage(new Interval.NonEmptyInterval(interval.getFrom(), interval.getTo() - 1), interval.getSize(array.getLength()) - 1);
+            interval = array.reportUsage(new Interval.NonEmptyInterval(interval.getFrom() + 1, interval.getTo()), interval.getSize(array.getLength()));
         }
         array.reportArray(result);
         return last;
