@@ -26,16 +26,24 @@ public class DynamicStack implements Stack {
         if (interval.isEmpty()){
             interval = new Interval.NonEmptyInterval(0,0);
         }
+        else{
+            interval = new Interval.NonEmptyInterval(interval.getFrom(), interval.getTo() + 1);
+        }
         array.reportUsage(interval, interval.getSize(array.getLength()) + 1);
-        interval = new Interval.NonEmptyInterval(interval.getFrom(), interval.getTo() + 1);
         array.set(interval.getTo(), value);
         array.reportArray(result);
     }
 
     @Override
     public int popBack() {
-        array.reportUsage(interval, interval.getSize(array.getLength()) - 1);
-        interval = new Interval.NonEmptyInterval(interval.getFrom(), interval.getTo() - 1);
+        if (interval.getSize(array.getLength()) == 1){
+            interval = new Interval.NonEmptyInterval(0,0);
+            array.reportUsage(interval, 0);
+        }
+        else {
+            array.reportUsage(interval, interval.getSize(array.getLength()) - 1);
+            interval = new Interval.NonEmptyInterval(interval.getFrom(), interval.getTo() - 1);
+        }
         array.reportArray(result);
         return array.get(interval.getTo());
     }
