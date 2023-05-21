@@ -43,12 +43,10 @@ public class DynamicStack implements Stack {
     public int popBack() {
         int last = array.get(interval.getTo());
         if (interval.getSize(array.getLength()) == 1 || interval.getSize(array.getLength()) == 0){
-            interval = Interval.EmptyInterval.getEmptyInterval();
-            interval = array.reportUsage(interval, 0);
+            interval = array.reportUsage(Interval.EmptyInterval.getEmptyInterval(), 0);
         }
         else {
-            interval = new Interval.NonEmptyInterval(interval.getFrom(), interval.getTo() - 1);
-            interval = array.reportUsage(interval, interval.getSize(array.getLength()) - 1);
+            interval = array.reportUsage(new Interval.NonEmptyInterval(interval.getFrom(), interval.getTo() - 1), interval.getSize(array.getLength()) - 1);
         }
         array.reportArray(result);
         return last;
