@@ -31,11 +31,12 @@ public class DynamicStack implements Stack {
         }
         if (interval.isEmpty()){
             interval = new Interval.NonEmptyInterval(0,0);
+            array.set(0,value);
         }
         else{
             interval = new Interval.NonEmptyInterval(interval.getFrom(), interval.getTo() + 1);
+            array.set(interval.getTo(), value);
         }
-        array.set(interval.getTo(), value);
         array.reportArray(result);
     }
 
