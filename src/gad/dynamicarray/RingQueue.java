@@ -37,7 +37,7 @@ public class RingQueue implements Queue {
             interval = array.reportUsage(interval,array.getLength() + 1);
             interval = new Interval.NonEmptyInterval(interval.getFrom(), (interval.getTo() + 1) % array.getLength());
         } else {
-            interval = new Interval.NonEmptyInterval(interval.getFrom(), interval.getTo() + 1);
+            interval = new Interval.NonEmptyInterval(interval.getFrom(), (interval.getTo() + 1) % array.getLength());
         }
         array.set(interval.getTo(), value);
         array.reportArray(result);
@@ -50,7 +50,7 @@ public class RingQueue implements Queue {
             interval = array.reportUsage(Interval.EmptyInterval.getEmptyInterval(), 0);
         }
         else {
-            interval = array.reportUsage(new Interval.NonEmptyInterval(interval.getFrom() + 1, interval.getTo()), interval.getSize(array.getLength()));
+            interval = array.reportUsage(new Interval.NonEmptyInterval((interval.getFrom() + 1) % array.getLength(), interval.getTo()), interval.getSize(array.getLength()));
         }
         array.reportArray(result);
         return last;
