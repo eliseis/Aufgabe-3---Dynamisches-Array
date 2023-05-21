@@ -49,7 +49,7 @@ public class DynamicStack implements Stack {
             interval = array.reportUsage(interval, interval.getSize(array.getLength()) - 1);
         }
         array.reportArray(result);
-        return array.get(interval.getTo());
+        return array.get(interval.getTo() + 1);
     }
 
     @Override
