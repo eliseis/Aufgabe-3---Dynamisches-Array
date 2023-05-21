@@ -35,10 +35,8 @@ public class RingQueue implements Queue {
         }
         if (interval.getSize(array.getLength()) >= array.getLength()) {
             interval = array.reportUsage(interval,array.getLength() + 1);
-            interval = new Interval.NonEmptyInterval(interval.getFrom(), (interval.getTo() + 1) % array.getLength());
-        } else {
-            interval = new Interval.NonEmptyInterval(interval.getFrom(), (interval.getTo() + 1) % array.getLength());
         }
+        interval = new Interval.NonEmptyInterval(interval.getFrom(), (interval.getTo() + 1) % array.getLength());
         array.set(interval.getTo(), value);
         array.reportArray(result);
     }
