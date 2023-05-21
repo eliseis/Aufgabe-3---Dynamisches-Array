@@ -27,13 +27,16 @@ public class RingQueue implements Queue {
         if (array.getLength() == 0){
             interval = array.reportUsage(interval, 1);
         }
-        else {
-            interval = array.reportUsage(interval, interval.getSize(array.getLength()) + 1);
-        }
         if (interval.isEmpty()){
             interval = new Interval.NonEmptyInterval(0,0);
+            array.set(interval.getTo(),value);
+            array.reportArray(result);
+            return;
         }
-        else{
+        if (interval.getSize(array.getLength()) >= array.getLength()) {
+            interval = array.reportUsage(interval,array.getLength() + 1);
+            interval = new Interval.NonEmptyInterval(interval.getFrom(), interval.getTo() + 1);
+        } else {
             interval = new Interval.NonEmptyInterval(interval.getFrom(), interval.getTo() + 1);
         }
         array.set(interval.getTo(), value);
