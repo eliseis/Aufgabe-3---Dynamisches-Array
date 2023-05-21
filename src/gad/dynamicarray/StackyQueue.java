@@ -11,16 +11,22 @@ public class StackyQueue implements Queue {
 
     @Override
     public int size() {
-        return 0;
+        return first.size() + second.size();
     }
 
     @Override
     public void pushBack(int value) {
+        first.pushBack(value);
     }
 
     @Override
     public int popFront() {
-       return 0;
+       if (second.isEmpty()){
+           while (!first.isEmpty()){
+               second.pushBack(first.popBack());
+           }
+       }
+        return second.popBack();
     }
 
     @Override
