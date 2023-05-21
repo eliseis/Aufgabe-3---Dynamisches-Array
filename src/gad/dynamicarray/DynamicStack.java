@@ -23,13 +23,18 @@ public class DynamicStack implements Stack {
 
     @Override
     public void pushBack(int value) {
+        if (array.getLength() == 0){
+            array.reportUsage(interval, 1);
+        }
+        else {
+            array.reportUsage(interval, interval.getSize(array.getLength()) + 1);
+        }
         if (interval.isEmpty()){
             interval = new Interval.NonEmptyInterval(0,0);
         }
         else{
             interval = new Interval.NonEmptyInterval(interval.getFrom(), interval.getTo() + 1);
         }
-        array.reportUsage(interval, interval.getSize(array.getLength()) + 1);
         array.set(interval.getTo(), value);
         array.reportArray(result);
     }
