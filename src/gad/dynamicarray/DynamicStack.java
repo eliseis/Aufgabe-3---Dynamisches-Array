@@ -31,18 +31,17 @@ public class DynamicStack implements Stack {
         }
         if (interval.isEmpty()){
             interval = new Interval.NonEmptyInterval(0,0);
-            array.set(0,value);
         }
         else{
             interval = new Interval.NonEmptyInterval(interval.getFrom(), interval.getTo() + 1);
-            array.set(interval.getTo(), value);
         }
+        array.set(interval.getTo(), value);
         array.reportArray(result);
     }
 
     @Override
     public int popBack() {
-        int last = interval.getTo();
+        int last = array.get(interval.getTo());
         if (interval.getSize(array.getLength()) == 1 || interval.getSize(array.getLength()) == 0){
             interval = Interval.EmptyInterval.getEmptyInterval();
             interval = array.reportUsage(interval, 0);
@@ -52,7 +51,7 @@ public class DynamicStack implements Stack {
             interval = array.reportUsage(interval, interval.getSize(array.getLength()) - 1);
         }
         array.reportArray(result);
-        return array.get(last);
+        return last;
     }
 
     @Override
